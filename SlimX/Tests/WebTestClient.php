@@ -1,6 +1,6 @@
 <?php
 
-namespace SlimX\Test;
+namespace SlimX\Tests;
 
 /**
  * Based on WebTestClient from
