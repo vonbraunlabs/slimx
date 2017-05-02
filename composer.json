@@ -1,0 +1,13 @@
+{
+    "name": "vonbraunlabs/slimx",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Diogo Oliveira de Melo",
+            "email": "melo@vonbraunlabs.com.br"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.0"
+    }
+}
