@@ -9,7 +9,16 @@ class Action
     protected $pattern;
     protected $callable;
 
-    public function __construct(string $method, string $pattern, callable $callable)
+    /**
+     * Organize the action.
+     *
+     * @param $method An HTTP method supported by Slim.
+     * @param $pattern URI to route the request.
+     * @param $callable Either an anonymous function or an array with keys
+     *  matching the HTTP_ACCEPT and values being the anonymous function to be
+     *  called.
+     */
+    public function __construct(string $method, string $pattern, $callable)
     {
         if (!in_array($method, $this->allowedMethods)) {
             throw new \Exception(
@@ -19,7 +28,27 @@ class Action
         }
         $this->method = $method;
         $this->pattern = $pattern;
-        $this->callable = $callable;
+        if (is_callable($callable)) {
+            $this->callable = $callable;
+        } else {
+            $this->callable = function ($request, $response, $args) use ($callable)
+            {
+                $headers = $request->getHeaders();
+                if (isset($headers['HTTP_ACCEPT'])) {
+                    foreach ($headers['HTTP_ACCEPT'] as $accept) {
+                        if (isset($callable[$accept])) {
+                            return $callable[$accept]($request, $response, $args);
+                        }
+                    }
+                }
+
+                $response = $response->withStatus(406);
+                $response->write('API version not present or not accepted');
+                $response->write(get_class($this));
+
+                return $response;
+            };
+        }
     }
 
     public function getMethod()
