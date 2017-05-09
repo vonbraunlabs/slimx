@@ -2,6 +2,10 @@
 
 Provides a thin layer over PHP Slim Microframework, to provide eXtra features.
 
+## Status
+
+[![Build Status](https://travis-ci.org/vonbraunlabs/slimx.png)](https://travis-ci.org/vonbraunlabs/slimx)
+
 ## SlimX\Controllers\Action
 
 The OO representation of an Action, on the MVC context. Enables HTTP request
