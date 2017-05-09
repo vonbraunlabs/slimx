@@ -12,7 +12,16 @@
     },
     "autoload": {
         "psr-4": {
-            "SlimX\\": "SlimX"
+            "SlimX\\Controllers\\": "SlimX/Controllers",
+            "SlimX\\Tests\\": "SlimX/Tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.1"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SlimX\\SelfTests\\": "tests/SlimX/SelfTests"
         }
     }
 }
