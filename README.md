@@ -16,9 +16,13 @@ $entrypoints['testGet'] = new Action(
     [
         'application/vnd.vbl.slimx.v1+json' => function ($request, $response, $args) {
             $response->write("{'api-version': 'v1'}");
+
+            return $response;
         },
         'application/vnd.vbl.slimx.v2+json' => function ($request, $response, $args) {
             $response->write("{'api-version': 'v2'}");
+
+            return $response;
         }
     ]
 );
