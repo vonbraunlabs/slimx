@@ -17,8 +17,10 @@ class Action
      * @param $callable Either an anonymous function or an array with keys
      *  matching the HTTP_ACCEPT and values being the anonymous function to be
      *  called.
+     * @param $errorCallable Optionally, a callback function may be given, to be
+     *  called when ACCEPT header doesn't match any of the expected.
      */
-    public function __construct(string $method, string $pattern, $callable)
+    public function __construct(string $method, string $pattern, $callable, ?callable $errorCallable = null)
     {
         if (!in_array($method, $this->allowedMethods)) {
             throw new \Exception(
@@ -31,7 +33,7 @@ class Action
         if (is_callable($callable)) {
             $this->callable = $callable;
         } else {
-            $this->callable = function ($request, $response, $args) use ($callable)
+            $this->callable = function ($request, $response, $args) use ($callable, $errorCallable)
             {
                 $headers = $request->getHeaders();
                 if (isset($headers['HTTP_ACCEPT'])) {
@@ -42,11 +44,14 @@ class Action
                     }
                 }
 
-                $response = $response->withStatus(406);
-                $response->write('API version not present or not accepted');
-                $response->write(get_class($this));
+                if (null !== $errorCallable) {
+                    return $errorCallable($response);
+                } else {
+                    $response = $response->withStatus(406);
+                    $response->write('API version not present or not accepted');
 
-                return $response;
+                    return $response;
+                }
             };
         }
     }
