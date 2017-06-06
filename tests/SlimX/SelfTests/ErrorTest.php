@@ -9,20 +9,23 @@ use SlimX\Exceptions\ErrorCodeNotFoundException;
 
 class ErrorTest extends TestCase
 {
+    protected $error;
+
     public function setup()
     {
-        Error::$codeList = [
+        $this->error = new Error();
+        $this->error->setCodeList([
             '1000' => [
                 'status' => 404,
                 'message' => 'Page not found'
             ]
-        ];
+        ]);
     }
 
     public function testSuccess()
     {
         $response = new Response(200);
-        $response = Error::handle($response, 1000);
+        $response = $this->error->handle($response, 1000);
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertEquals(json_encode(['code' => 1000, 'message' => 'Page not found']), (string) $response->getBody());
     }
@@ -31,6 +34,6 @@ class ErrorTest extends TestCase
     {
         $response = new Response(200);
         $this->expectException(ErrorCodeNotFoundException::class);
-        $response = Error::handle($response, 1001);
+        $response = $this->error->handle($response, 1001);
     }
 }

@@ -7,15 +7,15 @@ use SlimX\Exceptions\ErrorCodeNotFoundException;
 
 class Error
 {
-    public static $codeList;
+    protected $codeList;
 
-    public static function handle(ResponseInterface $response, int $code)
+    public function handle(ResponseInterface $response, int $code)
     {
-        if (isset(self::$codeList[$code]) &&
-            isset(self::$codeList[$code]['status']) &&
-            isset(self::$codeList[$code]['message'])
+        if (isset($this->codeList[$code]) &&
+            isset($this->codeList[$code]['status']) &&
+            isset($this->codeList[$code]['message'])
         ) {
-            $node = self::$codeList[$code];
+            $node = $this->codeList[$code];
             $response = $response->withStatus($node['status']);
             $response->getBody()->write(json_encode(['code' => $code, 'message' => $node['message']]));
 
@@ -23,5 +23,10 @@ class Error
         } else {
             throw new ErrorCodeNotFoundException($code);
         }
+    }
+
+    public function setCodeList(array $codeList)
+    {
+        $this->codeList = $codeList;
     }
 }

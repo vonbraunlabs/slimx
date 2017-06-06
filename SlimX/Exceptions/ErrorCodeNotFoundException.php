@@ -8,6 +8,6 @@ class ErrorCodeNotFoundException extends \Exception
 {
     public function __construct(int $code)
     {
-        $this->message = "Code $code is not registered: " . print_r(Error::$codeList, true);
+        $this->message = "Code $code is not registered";
     }
 }

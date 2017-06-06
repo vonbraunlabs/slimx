@@ -40,7 +40,8 @@ returned to the user. The `Error` class helps maintaining consistency on error
 messages. To use it, assign the error list, following the example bellow:
 
 ```php
-\SlimX\Models\Error::$codeList = [
+$error = new Error();
+$error->setCodeList([
     1000 => [
         'status' => 404',
         'message' => 'User info not found'
@@ -49,14 +50,14 @@ messages. To use it, assign the error list, following the example bellow:
         'status' => 406',
         'message' => 'You must specify API version'
     ],
-];
+]);
 ```
 
-Afterwards, you can use the static method `handle`, providing the
+Afterwards, you can use the method `handle`, providing the
 `ResponseInterface` and the error code:
 
 ```php
-return \SlimX\Models\Error::handle($response, 1000);
+return $error->handle($response, 1000);
 ```
 
 It will fill the $response object with the right http status code and the JSON
