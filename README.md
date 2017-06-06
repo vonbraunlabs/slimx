@@ -63,5 +63,5 @@ It will fill the $response object with the right http status code and the JSON
 message that show the error code and message:
 
 ```json
-{'code': 1000, 'message': 'User info not found'}
+{"code": 1000, "message": "User info not found"}
 ``` 
