@@ -15,6 +15,7 @@
         "psr-4": {
             "SlimX\\Controllers\\": "SlimX/Controllers",
             "SlimX\\Models\\": "SlimX/Models",
+            "SlimX\\Exceptions\\": "SlimX/Exceptions",
             "SlimX\\Tests\\": "SlimX/Tests"
         }
     },
