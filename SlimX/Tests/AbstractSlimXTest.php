@@ -10,7 +10,7 @@ abstract class AbstractSlimXTest extends TestCase
     protected $client;
     protected $method;
     protected $endpoint;
-    protected $requestHeaders = ['HTTP_ACCEPT' => 'application/vnd.vblpso.acl.v1+json'];
+    protected $requestHeaders = ['HTTP_ACCEPT' => 'application/vnd.v1+json'];
 
     protected abstract function getValidData() : array;
 
