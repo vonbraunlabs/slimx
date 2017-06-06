@@ -36,4 +36,19 @@ class ErrorTest extends TestCase
         $this->expectException(ErrorCodeNotFoundException::class);
         $response = $this->error->handle($response, 1001);
     }
+
+    public function testGetNodeSuccess()
+    {
+        $node = $this->error->getNode(1000);
+        $this->assertInternalType('array', $node);
+        $this->assertNotEmpty($node);
+        $this->assertArrayHasKey('status', $node);
+        $this->assertArrayHasKey('message', $node);
+    }
+
+    public function testGetNodeError()
+    {
+        $this->expectException(ErrorCodeNotFoundException::class);
+        $this->error->getNode(1001);
+    }
 }

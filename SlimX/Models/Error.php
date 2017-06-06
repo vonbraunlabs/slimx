@@ -25,6 +25,21 @@ class Error
         }
     }
 
+    /**
+     * Get the node with the corresponding code.
+     *
+     * @param $code Code number.
+     * @return array Corresponding element in the array.
+     */
+    public function getNode($code)
+    {
+        if (isset($this->codeList[$code])) {
+            return $this->codeList[$code];
+        } else {
+            throw new ErrorCodeNotFoundException($code);
+        }
+    }
+
     public function setCodeList(array $codeList)
     {
         $this->codeList = $codeList;
