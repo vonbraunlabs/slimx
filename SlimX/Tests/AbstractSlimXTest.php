@@ -3,6 +3,7 @@
 namespace SlimX\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractSlimXTest extends TestCase
 {
