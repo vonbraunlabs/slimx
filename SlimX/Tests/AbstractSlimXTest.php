@@ -14,6 +14,35 @@ abstract class AbstractSlimXTest extends TestCase
 
     protected abstract function getValidData() : array;
 
+    /**
+     * Asserts if given response respects what is expected from the respective Error obj.
+     *
+     * @param $response Request's response
+     * @param $code Expected error code
+     * @param $codeMax If specified, $code and $codeMax will act as minimum
+     * expected error code and maximum expected error code, respectively.
+     * @return void
+     */
+    protected function assertError(ResponseInterface $response, int $code, ?int $codeMax = null)
+    {
+        $body = (string) $response->getBody();
+        $json = json_decode($body);
+        $this->assertNotNull($json, "Returned body is not valid json: " . $body);
+        $this->assertInstanceOf('stdClass', $json);
+        $this->assertNotEmpty($json);
+        $this->assertTrue(isset($json->code), "Code not present: " . $body);
+        $this->assertTrue(isset($json->message), "Message not present: " . $body);
+        $error = $this->app->getContainer()->get('error');
+        if (null !== $codeMax) {
+            $this->assertTrue($code <= $json->code && $json->code <= $codeMax);
+        } else {
+            $this->assertEquals($code, $json->code);
+        }
+        $node = $error->getNode($json->code);
+        $this->assertEquals($node['status'], $response->getStatusCode());
+        $this->assertEquals($node['message'], $json->message);
+    }
+
     public abstract function getSlimInstance();
 
     public function setup()
