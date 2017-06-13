@@ -35,7 +35,10 @@ abstract class AbstractSlimXTest extends TestCase
         $this->assertTrue(isset($json->message), "Message not present: " . $body);
         $error = $this->app->getContainer()->get('error');
         if (null !== $codeMax) {
-            $this->assertTrue($code <= $json->code && $json->code <= $codeMax);
+            $this->assertTrue(
+                $code <= $json->code && $json->code <= $codeMax,
+                "Code {$json->code} is not within boundaries min $code, max $codeMax"
+            );
         } else {
             $this->assertEquals($code, $json->code);
         }
