@@ -114,4 +114,14 @@ class WebTestClient
     {
         return $this->response;
     }
+
+    /**
+     * Get the request object.
+     *
+     * @return \Slim\Http\Request Request object.
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
 }
