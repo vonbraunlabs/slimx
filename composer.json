@@ -16,8 +16,7 @@
             "SlimX\\Controllers\\": "SlimX/Controllers",
             "SlimX\\Exceptions\\": "SlimX/Exceptions",
             "SlimX\\Models\\": "SlimX/Models",
-            "SlimX\\Tests\\": "SlimX/Tests",
-            "SlimX\\Traits\\": "SlimX/Traits"
+            "SlimX\\Tests\\": "SlimX/Tests"
         }
     },
     "require-dev": {
