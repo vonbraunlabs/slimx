@@ -49,11 +49,11 @@ abstract class AbstractSlimXTest extends TestCase
 
     public abstract function getSlimInstance();
 
-    public function setup()
+    protected function setUp()
     {
         $this->app = $this->getSlimInstance();
         $this->client = new WebTestClient($this->app);
-        parent::setup();
+        parent::setUp();
     }
 
     /**
