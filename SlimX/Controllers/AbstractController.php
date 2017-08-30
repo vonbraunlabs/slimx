@@ -7,10 +7,12 @@ abstract class AbstractController
     private $entrypoints;
 
     protected $app;
+    protected $container;
 
     public function __construct(\Slim\App $app)
     {
         $this->app = $app;
+        $this->container = $app->getContainer();
     }
 
     abstract public function loadActions();
