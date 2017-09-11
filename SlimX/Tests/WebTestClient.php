@@ -52,8 +52,13 @@ class WebTestClient
 
 
         // Prepare a mock environment
-        $env = Environment::mock(array_merge($options, $optionalHeaders));
+        $env = Environment::mock(array_merge($options));
         $request = \Slim\Http\Request::createFromEnvironment($env);
+
+        foreach ($optionalHeaders as $key => $value) {
+            $request = $request->withHeader($key, $value);
+        }
+
         if ('get' !== $method && is_array($data)) {
             $request = $request->withParsedBody($data);
         }
