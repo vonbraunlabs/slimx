@@ -8,6 +8,14 @@ Provides a thin layer over PHP Slim Microframework, to provide eXtra features.
 
 [![Code Climate](https://codeclimate.com/github/vonbraunlabs/slimx.png)](https://codeclimate.com/github/vonbraunlabs/slimx)
 
+## Install
+
+Install the package using composer:
+
+```bash
+composer require vonbraunlabs/slimx
+```
+
 ## SlimX\Controllers\Action
 
 The OO representation of an Action, on the MVC context. Enables HTTP request
