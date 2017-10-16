@@ -13,7 +13,7 @@ abstract class AbstractSlimXTest extends TestCase
     protected $endpoint;
     protected $requestHeaders = ['HTTP_ACCEPT' => 'application/vnd.v1+json'];
 
-    protected abstract function getValidData() : array;
+    abstract protected function getValidData() : array;
 
     /**
      * Asserts if given response respects what is expected from the respective Error obj.
@@ -40,14 +40,14 @@ abstract class AbstractSlimXTest extends TestCase
                 "Code {$json->code} is not within boundaries min $code, max $codeMax"
             );
         } else {
-            $this->assertEquals($code, $json->code);
+            $this->assertEquals($code, $json->code, "Expecting code $code but received JSON $body");
         }
         $node = $error->getNode($json->code);
         $this->assertEquals($node['status'], $response->getStatusCode());
         $this->assertEquals($node['message'], $json->message);
     }
 
-    public abstract function getSlimInstance();
+    abstract public function getSlimInstance();
 
     protected function setUp()
     {
