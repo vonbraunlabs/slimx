@@ -4,7 +4,7 @@ namespace SlimX\Controllers;
 
 class Action
 {
-    private $allowedMethods = ['GET', 'POST', 'PUT', 'PATCH'];
+    private $allowedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
     protected $method;
     protected $pattern;
     protected $callable;
