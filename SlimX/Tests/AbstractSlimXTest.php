@@ -47,6 +47,17 @@ abstract class AbstractSlimXTest extends TestCase
         $this->assertEquals($node['message'], $json->message);
     }
 
+    protected function assertResponseCode(int $min, ?int $max = null)
+    {
+        $max = null === $max ? $min : $max;
+        $httpCode = $this->client->getResponse()->getStatusCode();
+        $body = $this->client->getResponse()->getBody();
+        $this->assertTrue(
+            $min <= $httpCode && $httpCode <= $max,
+            "Returned code $httpCode is not between $min and $max. Body: " . $body
+        );
+    }
+
     abstract public function getSlimInstance();
 
     protected function setUp()
@@ -66,12 +77,14 @@ abstract class AbstractSlimXTest extends TestCase
             $this->getValidData(),
             $this->requestHeaders
         );
+        $this->assertResponseCode(200, 299);
+    }
 
-        $httpCode = $this->client->getResponse()->getStatusCode();
-        $body = $this->client->getResponse()->getBody();
-        $this->assertTrue(
-            200 <= $httpCode && $httpCode < 300,
-            "Returned code $httpCode is not 2xx. Body: " . $body
-        );
+    public function testCorsOptions()
+    {
+        $this->client->options($this->endpoint, []);
+
+        $this->assertResponseCode(200, 299);
+        $response = $this->client->getResponse();
     }
 }
