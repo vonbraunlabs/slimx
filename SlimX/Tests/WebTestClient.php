@@ -78,7 +78,7 @@ class WebTestClient
     // `this->get()` and `$this->post()`. This is accomplished with the
     // `__call()` magic method below.
     private $testingMethods = array(
-        'get', 'post', 'patch', 'put', 'delete', 'head'
+        'get', 'post', 'patch', 'put', 'delete', 'head', 'options'
     );
 
     /**
