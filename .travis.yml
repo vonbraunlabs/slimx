@@ -9,3 +9,5 @@ before_script:
 
 script:
   - phpunit
+  - composer cs
+  - composer phpstan
