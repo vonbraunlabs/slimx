@@ -27,7 +27,10 @@ class ErrorTest extends TestCase
         $response = new Response(200);
         $response = $this->error->handle($response, 1000);
         $this->assertEquals(404, $response->getStatusCode());
-        $this->assertEquals(json_encode(['code' => 1000, 'message' => 'Page not found']), (string) $response->getBody());
+        $this->assertEquals(
+            json_encode(['code' => 1000, 'message' => 'Page not found']),
+            (string) $response->getBody()
+        );
     }
 
     public function testMissingCode()

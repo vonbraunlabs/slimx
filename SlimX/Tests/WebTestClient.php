@@ -50,7 +50,6 @@ class WebTestClient
             $options['slim.input']   = $data;
         }
 
-
         // Prepare a mock environment
         $env = Environment::mock(array_merge($options));
         $request = \Slim\Http\Request::createFromEnvironment($env);
@@ -62,7 +61,6 @@ class WebTestClient
         if ('get' !== $method && is_array($data)) {
             $request = $request->withParsedBody($data);
         }
-
 
         // Execute our app
         $response = new \Slim\Http\Response();

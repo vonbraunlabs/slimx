@@ -2,6 +2,9 @@
 
 namespace SlimX\Controllers;
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
 class Action
 {
     private $allowedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
@@ -30,11 +33,34 @@ class Action
         }
         $this->method = $method;
         $this->pattern = $pattern;
-        if (is_callable($callable)) {
-            $this->callable = $callable;
-        } else {
-            $this->callable = function ($request, $response, $args) use ($callable, $errorCallable)
-            {
+        $this->callable = $callable;
+        $this->errorCallable = $errorCallable;
+    }
+
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    public function getPattern()
+    {
+        return $this->pattern;
+    }
+
+    public function getCallable()
+    {
+
+        if (!is_callable($this->callable)) {
+            $callable = $this->callable;
+            $errorCallable = $this->errorCallable;
+            $this->callable = function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                array $args
+            ) use (
+                $callable,
+                $errorCallable
+            ) {
                 $headers = $request->getHeaders();
                 if (isset($headers['HTTP_ACCEPT'])) {
                     foreach ($headers['HTTP_ACCEPT'] as $accept) {
@@ -54,20 +80,7 @@ class Action
                 }
             };
         }
-    }
 
-    public function getMethod()
-    {
-        return $this->method;
-    }
-
-    public function getPattern()
-    {
-        return $this->pattern;
-    }
-
-    public function getCallable()
-    {
         return $this->callable;
     }
 }
