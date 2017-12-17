@@ -18,9 +18,9 @@ abstract class AbstractSlimXTest extends TestCase
     /**
      * Asserts if given response respects what is expected from the respective Error obj.
      *
-     * @param $response Request's response
-     * @param $code Expected error code
-     * @param $codeMax If specified, $code and $codeMax will act as minimum
+     * @param ResponseInterface $response Request's response
+     * @param int $code Expected error code
+     * @param ?int $codeMax If specified, $code and $codeMax will act as minimum
      * expected error code and maximum expected error code, respectively.
      * @return void
      */

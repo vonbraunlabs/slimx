@@ -4,6 +4,7 @@ namespace SlimX\Controllers;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Http\Response;
 
 class Action
 {
@@ -11,16 +12,17 @@ class Action
     protected $method;
     protected $pattern;
     protected $callable;
+    protected $errorCallable;
 
     /**
      * Organize the action.
      *
-     * @param $method An HTTP method supported by Slim.
-     * @param $pattern URI to route the request.
-     * @param $callable Either an anonymous function or an array with keys
+     * @param string $method An HTTP method supported by Slim.
+     * @param string $pattern URI to route the request.
+     * @param mixed $callable Either an anonymous function or an array with keys
      *  matching the HTTP_ACCEPT and values being the anonymous function to be
      *  called.
-     * @param $errorCallable Optionally, a callback function may be given, to be
+     * @param ?callable $errorCallable Optionally, a callback function may be given, to be
      *  called when ACCEPT header doesn't match any of the expected.
      */
     public function __construct(string $method, string $pattern, $callable, ?callable $errorCallable = null)
@@ -49,13 +51,12 @@ class Action
 
     public function getCallable()
     {
-
         if (!is_callable($this->callable)) {
             $callable = $this->callable;
             $errorCallable = $this->errorCallable;
             $this->callable = function (
                 RequestInterface $request,
-                ResponseInterface $response,
+                Response $response,
                 array $args
             ) use (
                 $callable,

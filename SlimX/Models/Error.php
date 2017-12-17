@@ -28,10 +28,10 @@ class Error
     /**
      * Get the node with the corresponding code.
      *
-     * @param $code Code number.
+     * @param int $code Code number.
      * @return array Corresponding element in the array.
      */
-    public function getNode($code)
+    public function getNode(int $code): array
     {
         if (isset($this->codeList[$code])) {
             return $this->codeList[$code];

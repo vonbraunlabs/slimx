@@ -26,7 +26,7 @@ class WebTestClient
      * @param  string $path            URI.
      * @param  array  $data            Data request.
      * @param  array  $optionalHeaders Optional headers.
-     * @return void.
+     * @return mixed.
      */
     private function request(
         string $method,
@@ -51,7 +51,7 @@ class WebTestClient
         }
 
         // Prepare a mock environment
-        $env = Environment::mock(array_merge($options));
+        $env = Environment::mock($options);
         $request = \Slim\Http\Request::createFromEnvironment($env);
 
         foreach ($optionalHeaders as $key => $value) {
@@ -95,7 +95,7 @@ class WebTestClient
      *
      * @param  string $method    Method being called.
      * @param  array  $arguments List of arguments.
-     * @return void.
+     * @return mixed.
      */
     public function __call(string $method, array $arguments)
     {
