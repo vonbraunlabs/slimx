@@ -79,14 +79,10 @@ class Action
                 }
             }
 
-            if (null !== $errorCallable) {
-                return $errorCallable($response);
-            } else {
-                $response = $response->withStatus(406);
-                $response->write('API version not present or not accepted');
-
-                return $response;
-            }
+            return null !== $errorCallable ?
+                $errorCallable($response) :
+                $response->withStatus(406)
+                    ->write('API version not present or not accepted');
         };
     }
 }
