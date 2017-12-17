@@ -52,36 +52,41 @@ class Action
     public function getCallable()
     {
         if (!is_callable($this->callable)) {
-            $callable = $this->callable;
-            $errorCallable = $this->errorCallable;
-            $this->callable = function (
-                RequestInterface $request,
-                Response $response,
-                array $args
-            ) use (
-                $callable,
-                $errorCallable
-            ) {
-                $headers = $request->getHeaders();
-                if (isset($headers['HTTP_ACCEPT'])) {
-                    foreach ($headers['HTTP_ACCEPT'] as $accept) {
-                        if (isset($callable[$accept])) {
-                            return $callable[$accept]($request, $response, $args);
-                        }
-                    }
-                }
-
-                if (null !== $errorCallable) {
-                    return $errorCallable($response);
-                } else {
-                    $response = $response->withStatus(406);
-                    $response->write('API version not present or not accepted');
-
-                    return $response;
-                }
-            };
+            $this->calculateCallable();
         }
 
         return $this->callable;
+    }
+
+    private function calculateCallable()
+    {
+        $callable = $this->callable;
+        $errorCallable = $this->errorCallable;
+        $this->callable = function (
+            RequestInterface $request,
+            Response $response,
+            array $args
+        ) use (
+            $callable,
+            $errorCallable
+        ) {
+            $headers = $request->getHeaders();
+            if (isset($headers['HTTP_ACCEPT'])) {
+                foreach ($headers['HTTP_ACCEPT'] as $accept) {
+                    if (isset($callable[$accept])) {
+                        return $callable[$accept]($request, $response, $args);
+                    }
+                }
+            }
+
+            if (null !== $errorCallable) {
+                return $errorCallable($response);
+            } else {
+                $response = $response->withStatus(406);
+                $response->write('API version not present or not accepted');
+
+                return $response;
+            }
+        };
     }
 }
