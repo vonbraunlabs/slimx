@@ -8,6 +8,8 @@ Provides a thin layer over PHP Slim Microframework, to provide eXtra features.
 
 [![Code Climate](https://codeclimate.com/github/vonbraunlabs/slimx.png)](https://codeclimate.com/github/vonbraunlabs/slimx)
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/vonbraunlabs/slimx/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/vonbraunlabs/slimx/?branch=master)
+
 ## Install
 
 Install the package using composer:
