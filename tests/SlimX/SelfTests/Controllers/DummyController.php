@@ -25,6 +25,12 @@ class DummyController extends AbstractController
             '/versionless',
             [$this, 'versionlessAction']
         ));
+
+        $this->pushEntrypoint(new Action(
+            'GET',
+            '/echo',
+            [$this, 'echoAction']
+        ));
     }
 
     public function rootV1Action(Request $request, Response $response, array $args)
@@ -40,5 +46,10 @@ class DummyController extends AbstractController
     public function versionlessAction(Request $request, Response $response, array $args)
     {
         return $response->write("{'version': null}");
+    }
+
+    public function echoAction(Request $request, Response $response, array $args)
+    {
+        return $response->write(json_encode($request->getQueryParams()));
     }
 }

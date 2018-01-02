@@ -68,4 +68,21 @@ class AbstractControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals("{'version': null}", $response->getBody());
     }
+
+    public function testSendArrayWithNullAsParam()
+    {
+        $this->client->get('/echo', ['color' => [2, 'null', 3]]);
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('{"color":["2","null","3"]}', (string) $response->getBody());
+    }
+
+    public function testSendParamWithNullAsParam()
+    {
+        $this->client->get('/echo', ['color' => ['bla']]);
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('{"color":["bla"]}', (string) $response->getBody());
+    }
+
 }

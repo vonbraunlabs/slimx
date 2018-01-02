@@ -8,6 +8,13 @@ use SlimX\Exceptions\ErrorCodeNotFoundException;
 class Error
 {
     protected $codeList;
+    protected $headerList;
+
+    public function __construct()
+    {
+        $this->codeList = [];
+        $this->headerList = [];
+    }
 
     public function handle(ResponseInterface $response, int $code)
     {
@@ -18,6 +25,9 @@ class Error
             $node = $this->codeList[$code];
             $response = $response->withStatus($node['status']);
             $response->getBody()->write(json_encode(['code' => $code, 'message' => $node['message']]));
+            foreach ($this->headerList as $key => $value) {
+                $response = $response->withAddedHeader($key, $value);
+            }
 
             return $response;
         } else {
@@ -43,5 +53,10 @@ class Error
     public function setCodeList(array $codeList)
     {
         $this->codeList = $codeList;
+    }
+
+    public function setHeaderList(array $headerList)
+    {
+        $this->headerList = $headerList;
     }
 }
