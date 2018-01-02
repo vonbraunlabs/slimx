@@ -84,5 +84,4 @@ class AbstractControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('{"color":["bla"]}', (string) $response->getBody());
     }
-
 }
