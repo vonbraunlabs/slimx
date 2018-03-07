@@ -7,6 +7,7 @@ namespace SlimX\Tests;
  * git@github.com:there4/slim-unit-testing-example.git
  */
 
+use \Slim\Http\Body;
 use \Slim\Http\Environment;
 
 /**
@@ -60,6 +61,11 @@ class WebTestClient
 
         if ('get' !== $method && is_array($data)) {
             $request = $request->withParsedBody($data);
+        } elseif ('get' !== $method && is_string($data)) {
+            $body = new Body(fopen('php://temp', 'r+'));
+            $body->write($data);
+            $body->rewind();
+            $request = $request->withBody($body);
         }
 
         // Execute our app
