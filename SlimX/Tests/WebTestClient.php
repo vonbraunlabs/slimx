@@ -105,7 +105,7 @@ class WebTestClient
      */
     public function __call(string $method, array $arguments)
     {
-        if (in_array($method, $this->testingMethods)) {
+        if (in_array(strtolower($method), $this->testingMethods)) {
             list($path, $data, $headers) = array_pad($arguments, 3, array());
             return $this->request($method, $path, $data, $headers);
         }
