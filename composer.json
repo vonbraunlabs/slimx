@@ -33,6 +33,7 @@
     "scripts": {
         "test": "vendor/bin/phpunit --stderr",
         "cs": "vendor/bin/phpcs --standard=PSR2 SlimX/ tests/",
-        "phpstan": "vendor/bin/phpstan analyse SlimX/ tests/ -l 5"
+        "phpstan": "vendor/bin/phpstan analyse SlimX/ tests/ -l 5",
+        "lint": "for name in $(find SlimX/ tests/ -type f -name '*.php'); do php -l $name || exit 1 ; done"
     }
 }
