@@ -80,7 +80,7 @@ class Action
             }
 
             return null !== $errorCallable ?
-                $errorCallable($response) :
+                $errorCallable($request, $response) :
                 $response->withStatus(406)
                     ->write('API version not present or not accepted');
         };
