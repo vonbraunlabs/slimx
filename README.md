@@ -126,11 +126,11 @@ messages. To use it, assign the error list, following the example bellow:
 $error = new Error();
 $error->setCodeList([
     1000 => [
-        'status' => 404',
+        'status' => 404,
         'message' => 'User info not found'
     ],
     1001 => [
-        'status' => 406',
+        'status' => 406,
         'message' => 'You must specify API version'
     ],
 ]);
