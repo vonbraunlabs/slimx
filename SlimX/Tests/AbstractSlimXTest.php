@@ -87,4 +87,23 @@ abstract class AbstractSlimXTest extends TestCase
         $this->assertResponseCode(200, 299);
         $response = $this->client->getResponse();
     }
+
+    /**
+     * Get full path of given file. Look for file on current dir, and
+     * recursively on its parent dir, until file is found.
+     *
+     * @param string $file File name.
+     *
+     * @return string Full name of the file.
+     */
+    protected function getFullPath(string $file): string
+    {
+        for ($i = 0;
+            !file_exists(
+                $fullPath = __DIR__ . '/' . str_repeat('../', $i) . $file
+            ) && $i < 100;
+            $i++) {
+        }
+        return $fullPath;
+    }
 }
