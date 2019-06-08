@@ -47,14 +47,19 @@ abstract class AbstractSlimXTest extends TestCase
         $this->assertEquals($node['message'], $json->message);
     }
 
-    protected function assertResponseCode(int $min, ?int $max = null)
+    protected function assertResponseCode(int $min, ?int $max = null, ?string $message = null)
     {
         $max = null === $max ? $min : $max;
         $httpCode = $this->client->getResponse()->getStatusCode();
         $body = $this->client->getResponse()->getBody();
+
+        if ($message !== null) {
+            $message = ". Custom message: $message";
+        }
         $this->assertTrue(
             $min <= $httpCode && $httpCode <= $max,
-            "Returned code $httpCode is not between $min and $max. Body: " . $body
+            "Returned code $httpCode is not between $min and $max. Body: " .
+            $body . $message
         );
     }
 
