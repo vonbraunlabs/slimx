@@ -1,0 +1,6 @@
+parameters:
+ universalObjectCratesClasses:
+  - RedBeanPHP\OODBBean
+  - RedBeanPHP\R
+ autoload_files:
+  - ./vendor/autoload.php
