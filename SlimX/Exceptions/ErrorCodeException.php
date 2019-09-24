@@ -4,8 +4,8 @@ namespace SlimX\Exceptions;
 
 class ErrorCodeException extends \Exception
 {
-    public function __construct(int $code)
+    public function __construct(int $code, string $message = '')
     {
-        parent::__construct('', $code);
+        parent::__construct($message, $code);
     }
 }
