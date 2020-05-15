@@ -29,7 +29,7 @@ abstract class AbstractSlimXTest extends TestCase
         $body = (string) $response->getBody();
         $json = json_decode($body);
         $this->assertNotNull($json, "Returned body is not valid json: " . $body);
-        $this->assertInstanceOf('stdClass', $json);
+        $this->assertInstanceOf('stdClass', $json, $body);
         $this->assertNotEmpty($json);
         $this->assertTrue(isset($json->code), "Code not present: " . $body);
         $this->assertTrue(isset($json->message), "Message not present: " . $body);
