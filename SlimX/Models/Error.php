@@ -16,22 +16,19 @@ class Error
         $this->headerList = [];
     }
 
-    public function handle(
-        ResponseInterface $response,
-        int $code,
-        string $customMessage = ''
-    ) {
+    public function handle(ResponseInterface $response, int $code, ?string $customMessage = null)
+    {
         if (isset($this->codeList[$code]) &&
             isset($this->codeList[$code]['status']) &&
             isset($this->codeList[$code]['message'])
         ) {
             $node = $this->codeList[$code];
             $response = $response->withStatus($node['status']);
-            $json = ['code' => $code, 'message' => $node['message']];
-            if (!empty($customMessage)) {
-                $json['customMessage'] = $customMessage;
+            $ret = ['code' => $code, 'message' => $node['message']];
+            if (null !== $customMessage) {
+                $ret['customMessage'] = $customMessage;
             }
-            $response->getBody()->write(json_encode($json));
+            $response->getBody()->write(json_encode($ret));
             foreach ($this->headerList as $key => $value) {
                 $response = $response->withAddedHeader($key, $value);
             }
