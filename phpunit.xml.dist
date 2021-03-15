@@ -9,21 +9,16 @@
             <directory>tests/SlimX/SelfTests</directory>
         </testsuite>
     </testsuites>
-    <php>
-        <ini name="date.timezone" values="UTC"/>
-    </php>
     <filter>
       <whitelist processUncoveredFilesFromWhitelist="true">
         <directory suffix=".php">SlimX</directory>
       </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="results/coverage" charset="UTF-8"
-             yui="true" highlight="false"
+        <log type="coverage-html" target="results/coverage" 
              lowUpperBound="35" highLowerBound="70"/>
         <log type="coverage-clover" target="results/phpunit/clover.xml"/>
         <log type="junit" target="results/phpunit/junit.xml"/>
-        <log type="tap" target="results/phpunit/tap.txt"/>
         <log type="testdox-html" target="results/phpunit/testdox.html"/>
     </logging>
 </phpunit>

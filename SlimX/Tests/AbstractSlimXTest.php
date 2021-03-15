@@ -65,7 +65,7 @@ abstract class AbstractSlimXTest extends TestCase
 
     abstract public function getSlimInstance();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->app = $this->getSlimInstance();
         $this->client = new WebTestClient($this->app);

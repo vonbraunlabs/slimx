@@ -13,7 +13,7 @@ class AbstractControllerTest extends TestCase
 {
     protected $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $containter = new Container([]);
         $app = new App($containter);

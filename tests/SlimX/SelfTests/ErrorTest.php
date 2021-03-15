@@ -11,7 +11,7 @@ class ErrorTest extends TestCase
 {
     protected $error;
 
-    public function setup()
+    public function setup(): void
     {
         $this->error = new Error();
         $this->error->setCodeList([
@@ -43,7 +43,7 @@ class ErrorTest extends TestCase
     public function testGetNodeSuccess()
     {
         $node = $this->error->getNode(1000);
-        $this->assertInternalType('array', $node);
+        $this->assertIsArray($node);
         $this->assertNotEmpty($node);
         $this->assertArrayHasKey('status', $node);
         $this->assertArrayHasKey('message', $node);
